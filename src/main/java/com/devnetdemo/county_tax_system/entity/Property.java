@@ -1,7 +1,9 @@
 package com.devnetdemo.county_tax_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "properties")
@@ -21,6 +23,10 @@ public class Property {
     private BigDecimal taxRate;
 
     private Integer taxYear;
+
+    @OneToMany(mappedBy = "property")
+    @JsonIgnore
+    private List<Payment> payments;
 
     //getters and setters
     public Long getId() {return id;}
