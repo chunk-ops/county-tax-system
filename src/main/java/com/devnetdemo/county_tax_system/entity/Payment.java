@@ -11,11 +11,13 @@ import java.time.LocalDate;
 @Table(name = "payments")
 public class Payment {
 
+    public Payment() {}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "Amount is required")
     private BigDecimal amount;
     @NotNull
     private LocalDate paymentDate;

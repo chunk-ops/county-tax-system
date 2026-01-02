@@ -41,8 +41,8 @@ public class PaymentController {
     //get total payments for a property by parcelId
     @GetMapping ("/property/{parcelId}/total")
     public ResponseEntity<BigDecimal> getTotalPaymentsForProperty(@PathVariable String parcelId) {
-        List<Payment> payments = paymentService.getPaymentsForProperty(parcelId);
-        BigDecimal total = paymentService.calculateTotalPayments(payments);
+        //List<Payment> payments = paymentService.getPaymentsForProperty(parcelId);
+        BigDecimal total = paymentService.calculateTotalPaymentsByParcelId(parcelId);
         return ResponseEntity.ok(total);
     }
 }

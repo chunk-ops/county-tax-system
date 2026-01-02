@@ -24,6 +24,17 @@ public class PaymentService {
 
     //record a new payment
     public Payment recordPayment(Payment payment) {
+
+        if (payment.getProperty() == null || payment.getProperty().getParcelId() == null) {
+            throw new IllegalArgumentException("Payment must include parcel id");
+        }
+
+        String parcelId = payment.getProperty().getParcelId();
+
+        Property property = propertyRepository.findByParcelId(parcelId).orElseThrow(() -> new IllegalArgumentException("Property not found"));
+
+        payment.setProperty(property);
+
         return paymentRepository.save(payment);
     }
 
@@ -55,4 +66,10 @@ public class PaymentService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
      */
+
+    public BigDecimal calculateTotalPaymentsByParcelId(String parcelId) {
+        List<Payment> payments = paymentRepository.findByProperty_ParcelId(parcelId);
+
+        return payments.stream().map(Payment::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }

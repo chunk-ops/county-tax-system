@@ -9,6 +9,8 @@ import java.util.List;
 @Table(name = "properties")
 public class Property {
 
+    public Property() {}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
