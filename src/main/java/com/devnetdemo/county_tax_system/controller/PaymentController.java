@@ -3,6 +3,7 @@ package com.devnetdemo.county_tax_system.controller;
 import com.devnetdemo.county_tax_system.entity.Payment;
 import com.devnetdemo.county_tax_system.entity.Property;
 import com.devnetdemo.county_tax_system.service.PaymentService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class PaymentController {
 
     //post a payment
     @PostMapping
-    public ResponseEntity<Payment> createPayment(@RequestBody Payment payment) {
+    public ResponseEntity<Payment> createPayment(@Valid @RequestBody Payment payment) {
         Payment saved = paymentService.recordPayment(payment);
         return ResponseEntity.ok(saved);
     }

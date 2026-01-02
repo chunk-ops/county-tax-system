@@ -2,6 +2,7 @@ package com.devnetdemo.county_tax_system.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -18,10 +19,12 @@ public class Payment {
     private Long id;
 
     @NotNull(message = "Amount is required")
+    @DecimalMin(value = "0.01", message = "Amount must be greater than zero")
     private BigDecimal amount;
-    @NotNull
+    @NotNull(message = "Payment date is required")
     private LocalDate paymentDate;
 
+    @NotNull(message = "Property reference is required")
     @ManyToOne
     @JoinColumn(name = "property_id")
     @JsonBackReference
